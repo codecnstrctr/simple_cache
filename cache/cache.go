@@ -93,11 +93,22 @@ func (c *Cache) set(key string, data interface{}, ttl time.Duration) {
 
 func (c *Cache) get(key string) (interface{}, bool) {
 	v, ok := c.storage[key]
+	if ok {
+		tID, mOk := c.ttlHeap.indices[key]
+		if mOk {
+			expireAt := c.ttlHeap.timeouts[tID].expireAt
+			if expireAt.Before(time.Now()) {
+				delete(c.storage, key)
+				return nil, false
+			}
+		}
+	}
+
 	return v, ok
 }
 
 func (c *Cache) remove(key string) bool {
-	_, ok := c.get(key)
+	_, ok := c.storage[key]
 	if ok {
 		delete(c.storage, key)
 	}

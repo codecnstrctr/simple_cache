@@ -47,6 +47,16 @@ func TestCacheKeys(t *testing.T) {
 	}
 }
 
+func TestCacheGetExpired(t *testing.T) {
+	c := NewCache(60)
+
+	c.Set("foo", 123, -1*time.Second)
+	_, ok := c.Get("foo")
+	if ok {
+		t.Error("err on getting expired element")
+	}
+}
+
 func TestCacheRemovingExpired(t *testing.T) {
 	c := NewCache(2)
 

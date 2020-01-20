@@ -102,11 +102,7 @@ Request
 ``` json
 {
     "method": "Command.Keys",
-<<<<<<< HEAD
     "params": [{}],
-=======
-    "params": [],
->>>>>>> 1aacba7684c5d9f863194dbcb4cf08c4032f6c98
     "id": 123
 }
 ```
