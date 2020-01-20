@@ -23,8 +23,8 @@ func main() {
 	c := cache.NewCache(removeExpiredPeriod)
 	defer c.Stop()
 
-	cmd := network.NewCommand(c)
-	l := network.NewListener(port, cmd)
+	network.NewCommand(c)
+	l := network.NewListener(port)
 
 	l.Listen()
 	defer l.Stop()
