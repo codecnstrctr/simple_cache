@@ -1,6 +1,7 @@
 package network
 
 import (
+	"net/rpc"
 	"time"
 
 	"../cache"
@@ -36,6 +37,7 @@ type GetResponse struct {
 func NewCommand(storage *cache.Cache) *Command {
 	c := new(Command)
 	c.storage = storage
+	rpc.Register(c)
 
 	return c
 }

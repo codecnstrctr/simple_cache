@@ -2,7 +2,6 @@ package network
 
 import (
 	"net"
-	"net/rpc"
 	"net/rpc/jsonrpc"
 	"strconv"
 )
@@ -15,17 +14,14 @@ const (
 type Listener struct {
 	proto string
 	addr  string
-	cmd   *Command
 	done  chan struct{}
 }
 
 // NewListener creates new listener instance
-func NewListener(port int, cmd *Command) *Listener {
+func NewListener(port int) *Listener {
 	l := new(Listener)
 	l.proto = defaultProto
 	l.addr = ":" + strconv.Itoa(port)
-	l.cmd = cmd
-	rpc.Register(l.cmd)
 
 	return l
 }
